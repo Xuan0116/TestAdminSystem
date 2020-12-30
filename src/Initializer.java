@@ -1,39 +1,38 @@
+import jdk.jshell.execution.LoaderDelegate;
+
 import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-public class Initializer{
+public class Initializer {
     public static void Initialize() throws MaxCharException {
         Admin.Deserialize();
         Customer.Deserialize();
         Shop.Deserialize();
         Visit.Deserialize();
+        Case.Deserialize();
 
         if (Admin.adminArrayList.isEmpty())
-            PreAdmin();
+            preAdmin();
+
+        if(Case.caseArrayList.isEmpty())
+            preCase();
+
+        if(Visit.visits.isEmpty())
+            preVisit();
     }
 
-    public static void PreAdmin() throws MaxCharException{
-        new Admin("User1","User1");
-        new Admin("User2","User2");
-        new Admin("User3","User3");
+    public static void preCase(){
+        new Case((LocalDateTime.now().minusHours(12)),1,2 );
+        new Case((LocalDateTime.now().minusDays(1)),4,3 );
     }
 
-    public static void PreCustomer(){
-        new Customer("Johnson Smith","jsmith","0123456789","Normal");
-        new Customer("Jackson Teng","jteng","0124567890","Normal");
-        new Customer("Ahmad Mohd","mohdamd","0191234567","Normal");
-        new Customer("Tan Ah Beng","ahbeng","0133456789","Normal");
-        new Customer("Lim Ah Chong","ahchong","0183456789","Normal");
-    }
-
-    public static void PreShop(){
-        new Shop("KFC", "delicious","0312345678","Normal","Ken");
-        new Shop("Texas", "chicken","0322345678","Normal","John");
-        new Shop("Basket Robbin", "icecream","0332345678","Normal","Smith");
-        new Shop("llaollao", "llaollao","0342345678","Normal","Elson");
+    public static void preAdmin() throws MaxCharException {
+        new Admin("User1", "User1");
+        new Admin("User2", "User2");
+        new Admin("User3", "User3");
     }
 
     public static void preVisit() {
@@ -55,7 +54,7 @@ public class Initializer{
         final int millisInDay = 24*60*60*1000;
 
         /**Local Date Time array with size 30 */
-         LocalDateTime[] randomDTs = new LocalDateTime[30];
+        LocalDateTime[] randomDTs = new LocalDateTime[30];
         long[] diffSec = new long[30];
         /** Current DateTime */
         LocalDateTime dt = LocalDateTime.now();
